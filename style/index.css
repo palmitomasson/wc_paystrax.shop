@@ -1,0 +1,384 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+html h3,
+html p,
+html .wpwl-label,
+html iframe,
+body h3,
+body p,
+body .wpwl-label,
+body iframe {
+    font-family: "Roboto", sans-serif !important;
+}
+
+.wpwl-label {
+    width: 100%;
+    text-align: start;
+}
+
+html iframe,
+html .wpwl-control,
+body iframe,
+body .wpwl-control {
+    padding-left: 0 !important;
+}
+
+html .wpwl-wrapper>.wpwl-icon,
+body .wpwl-wrapper>.wpwl-icon {
+    position: absolute;
+    right: 0.5625em;
+    top: 5px;
+} 
+
+html .ui-state-default,
+body .ui-state-default {
+    border: none;
+    background: none;
+}
+
+.wpwl-control {
+    width: 100%;
+}
+
+ .wpwl-control::placeholder {
+    font-family: "M PLUS Rounded 1c", sans-serif !important;
+}
+
+.wpwl-group-card-logos-horizontal {
+    display: none;
+}
+
+.wpwl-container {
+    width: 450px;
+    padding: 25px;
+    background: #323e53;
+    background: -moz-linear-gradient(180deg, #323e53 0%, #181d29 100%);
+    background: -webkit-linear-gradient(180deg, #323e53 0%, #181d29 100%);
+    background: linear-gradient(180deg, #323e53 0%, #181d29 100%);
+    border-radius: 15px;
+    color: white;
+}
+
+.wpwl-container input,
+.wpwl-container .wpwl-control-iframe {
+    background: none;
+    border: none;
+}
+
+.wpwl-container .wpwl-wrapper {
+    width: 100%;
+    /* display: flex; */
+}
+
+.wpwl-container .button-group {
+    width: 100%;
+    display: flex;
+    grid-area: Btn;
+    align-self: center;
+    padding-bottom: 20px;
+    justify-content: center;
+}
+
+.wpwl-container .button-group .payButton {
+    width: 140px;
+    height: 50px;
+    border: 2px solid #3a4558;
+    border-radius: 30px;
+    color: white;
+    transition: 0.2s;
+}
+
+.wpwl-container .button-group .payButton:hover {
+    border-color: white;
+    transition: 0.2s;
+}
+
+.wpwl-container .button-group .active {
+    border-color: white;
+}
+
+.wpwl-container .button-group .paypalButton {
+    display: none;
+}
+
+.wpwl-container .wpwl-group-cardNumber {
+    grid-area: Num;
+}
+
+.wpwl-container .wpwl-group-cardHolder {
+    grid-area: Name;
+}
+
+.wpwl-container .wpwl-group-expiry {
+    grid-area: Exp;
+}
+
+.wpwl-container .wpwl-group-cvv {
+    grid-area: CVV;
+}
+
+.wpwl-container .wpwl-group {
+    margin-bottom: unset;
+}
+
+.wpwl-group-registration.wpwl-selected {
+    border-radius: 6px;
+}
+
+.wpwl-container input,
+.wpwl-container .wpwl-control-iframe {
+    border-bottom: 1px solid #3a4558;
+}
+
+.wpwl-container h1 {
+    margin: 0;
+    height: 40px;
+    padding-bottom: 20px;
+    grid-area: Info;
+}
+
+.wpwl-container .wpwl-popover {
+    color: black;
+    width: 115px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-size: 13px;
+    text-align: center;
+}
+
+.wpwl-container .wpwl-popover .wpwl-arrow {
+    left: 82px !important;
+}
+
+.wpwl-container .wpwl-popover>.wpwl-popover-content {
+    margin: 0.5em 0;
+}
+
+.wpwl-container h3 {
+    grid-area: Method;
+    font-size: 16px;
+    margin: 0px;
+    margin-bottom: 5px;
+    align-self: end;
+    height: 20px;
+}
+
+.wpwl-container .wpwl-group-brand {
+    display: none;
+}
+
+.wpwl-button-pay {
+    float: none;
+    background: white;
+    border: 2px solid black;
+    color: black;
+    width: 200px;
+    height: 45px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    margin: 0 auto;
+}
+
+.wpwl-button-pay:hover,
+.wpwl-button-pay:focus,
+.wpwl-button-pay:active {
+    background: #A18A5A;
+    border: none;
+    color: white;
+}
+
+.wpwl-form-registrations .wpwl-wrapper-submit {
+    display: flex;
+    justify-content: center;
+}
+
+.wpwl-wrapper-registration-registrationId,
+.wpwl-wrapper-registration-brand,
+.wpwl-wrapper-registration-number,
+.wpwl-wrapper-registration-expiry {
+    padding-right: 15px;
+}
+
+.wpwl-wrapper-registration-brand {
+    margin-right: 20px;
+}
+
+.wpwl-wrapper-registration-details {
+    display: flex;
+    align-items: center;
+}
+
+.wpwl-registration {
+    display: flex;
+    align-items: center;
+}
+
+.wpwl-container-registration {
+    margin-bottom: 25px;
+}
+
+.wpwl-container-registration .wpwl-wrapper-submit {
+    margin-top: 20px;
+}
+
+.registerContainer {
+    display: flex;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    margin-bottom: 10px;
+}
+
+.registerContainer .customInput {
+    margin-left: 5px;
+}
+
+.registerContainer .customInput input {
+    width: 15px;
+    height: 15px;
+    margin-top: 6px;
+}
+
+.wpwl-group-submit {
+    border: none !important;
+    grid-area: sub;
+    justify-content: center;
+    align-content: end;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.wpwl-control-expiry,
+.wpwl-control-cardHolder {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    color: white;
+}
+
+.wpwl-hint {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+.wpwl-has-error~.wpwl-hint {
+    text-align: left;
+    font-size: 12px;
+}
+
+.wpwl-form-card {
+    justify-content: center;
+    display: grid;
+    grid-template-areas: "Name . Exp" "Num . CVV" "sub sub sub";
+    grid-template-columns: 1fr 25px 0.6fr;
+    grid-template-rows: 95px 95px 60px;
+    margin: 0 auto;
+}
+
+.wpwl-container-virtualAccount-PAYPAL {
+    display: none !important;
+}
+
+
+/*--------- mystyle---------- */
+
+
+.wpwl-form-card {
+  width: 450px;
+  padding: 25px;
+  background: #323e53;
+  background: -moz-linear-gradient(180deg, #323e53 0%, #181d29 100%);
+  background: -webkit-linear-gradient(180deg, #323e53 0%, #181d29 100%);
+  background: linear-gradient(180deg, #323e53 0%, #181d29 100%);
+  border-radius: 15px;
+  color: white;
+  margin-left: -25px !important;
+}
+.wpwl-button-pay {
+  width: 140px;
+  height: 50px;
+  border: 2px solid #3a4558;
+  border-radius: 30px;
+  color: black;
+  transition: 0.2s;
+  background-color: white;
+  justify-content: center;
+}
+.wpwl-wrapper.wpwl-wrapper-submit {
+  width: 100%;
+  display: flex;
+  grid-area: Btn;
+  align-self: center;
+  padding-bottom: 20px;
+  justify-content: center;
+}
+
+.wpwl-button-pay:hover {
+  border: 1px solid DarkRed !important;
+  transition: 0.2s;
+  background-color: #7c3c41 !important;
+}
+.wpwl-container {
+  background-color: white !important;
+}
+
+.wpwl-form-card {
+  justify-content: center;
+  /* display: grid !important; */
+  grid-template-areas:
+    "Name . Exp"
+    "Num . CVV"
+    "sub sub sub";
+  grid-template-columns: 1fr 25px 0.6fr;
+  grid-template-rows: 95px 95px 70px !important;
+  margin: 0 auto;
+}
+/* .wpwl-group{
+  padding:10px 4px!important;
+} */
+.wpwl-container {
+  background: -webkit-linear-gradient(180deg, white 0%, white 100%) !important;
+  background: linear-gradient(180deg, white 0%, white 100%) !important;
+  border-radius: 15px;
+  color: white;
+}
+input.wpwl-control.wpwl-control-cardHolder {
+  width: 200px ;
+}
+.wpwl-group.wpwl-group-cardNumber.wpwl-clearfix {
+  width: auto;
+}
+
+input.wpwl-control.wpwl-control-cardHolder:focus {
+  background-color: #2c374a;
+  color: white;
+  outline: none;
+}
+
+.input.wpwl-control.wpwl-control-expiry:focus {
+  background-color: #2c374a !important;
+  color: white;
+}
+.wpwl-wrapper.wpwl-wrapper-expiry :focus {
+  background-color: #2c374a;
+  color: white;
+}
+.wpwl-wrapper.wpwl-wrapper-expiry :active {
+  background-color: #2c374a;
+  color: white;
+}
+input[type="text"] .input-text {
+  background-color: #f2f2f2;
+  color: white;
+}
+
+.wpwl-container input {
+  color: white;
+}
+@media (min-width: 480px) {
+  .wpwl-group-expiry,
+  .wpwl-group-brandLogo,
+  .wpwl-group-cvv {
+    width: 65.333333% !important;
+  }
+}
+
+
