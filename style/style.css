@@ -5,7 +5,10 @@
   display: block;
 }
 
-/* --modal--- */
+/* modal */
+
+/* RESET RULES 
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 :root {
   --lightgray: #efefef;
   --blue: steelblue;
@@ -52,7 +55,8 @@ body {
   border-radius: 30px;
 }
 
-/* -------------MODAL –––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* MODAL
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .modal {
   position: fixed;
   top: 0;
@@ -73,6 +77,7 @@ body {
 .modal.is-visible {
   visibility: visible;
   opacity: 1;
+  z-index: 1000;
 }
 
 .modal-dialog {
@@ -83,9 +88,9 @@ body {
   width: 509px;
   border-radius: 5px;
   background: var(--white);
-  /* scroll if scroll not working i have to remove this */
-  overflow: auto; 
+  /* overflow: auto; changed on 28/11/22*/
   cursor: default;
+  
 }
 
 /* .modal-dialog > * {
@@ -98,6 +103,12 @@ body {
 .modal-header {
   display: flex;
   align-items: center;
+}
+
+.modal-content{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
 
 .modal-header .close-modal {
@@ -127,148 +138,14 @@ body {
   color: #e31b23;
 }
 
-@media only screen and (max-width: 780px) {
- 
-  .wpwl-form-card {
-    justify-content: center;
-    /* display: grid !important; */
-    grid-template-areas:
-        "Name . Exp"
-        "Num . CVV"
-        "sub sub sub";
-    grid-template-columns: 0fr 17px 0.6fr!important;
-    grid-template-rows: 84px 92px 79px !important;
-    margin: 0 auto;
-  }
-
-  input.wpwl-control.wpwl-control-cardHolder {
-    width: 170px !important;
+@media only screen and (max-width: 768px) {
+  .modal-dialog{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 400px;}
 }
-.wpwl-group.wpwl-group-button.wpwl-clearfix {
-  text-align: center;
-}
-
-.wpwl-form-card {
-  width: 343px!important;
-  padding: 10px!important;
-  margin-left: -48px !important;
-}
-.modal-dialog {
-  width: 96%!important;
-}
-.modal-dialog {
-  padding: 0px 20px 0px 20px!important;
-}
-.wpwl-container {
-  width:0px!important;
-}
-form.wpwl-form.wpwl-form-card.wpwl-clearfix {
-  position: relative!important;
-  right: 11px!important;
-}
-}
-
-
-@media only screen and (width: 414px) {
-form.wpwl-form.wpwl-form-card.wpwl-clearfix {
-  position: relative!important;
-  right: -5px!important;
-}
-.wpwl-container {
-  width: 350px!important;
-}
-}
-@media only screen and (width: 390px) {
-  form.wpwl-form.wpwl-form-card.wpwl-clearfix {
-    position: relative!important;
-    right: 5px!important;
-  }
-  .wpwl-container {
-    width: 350px!important;
-  }
-  }
-
-  @media only screen and (width: 360px) {
-    form.wpwl-form.wpwl-form-card.wpwl-clearfix {
-      position: relative!important;
-      right: 10px!important;
-  }
-    .wpwl-container.wpwl-container-card.wpwl-container-card-1357610740830.wpwl-clearfix {
-      width: 0px!important;
-  }
-  .wpwl-container {
-    width: 315px!important;
-}
-.wpwl-form-card {
-  width: 325px!important;
-}
+@media only screen and (max-width: 500px) {
+    .modal-dialog{
+        padding: 5px;
     }
-
-    @media only screen and (width: 412px) {
-      form.wpwl-form.wpwl-form-card.wpwl-clearfix {
-        position: relative!important;
-        right: 0px!important;
-    }
-      .wpwl-container.wpwl-container-card.wpwl-container-card-1357610740830.wpwl-clearfix {
-        width: 0px!important;
-    }
-    .wpwl-container {
-      width: 315px!important;
-  }
-  .wpwl-form-card {
-    width: 360px!important;
-    padding: 10px!important;
-    margin-left: -48px !important;
 }
-      }
-      @media only screen and (width: 540px) {
-      .wpwl-form-card {
-        width: 480px!important;
-        padding: 10px!important;
-        margin-left: -48px !important;
-    }
-    form.wpwl-form.wpwl-form-card.wpwl-clearfix {
-      position: relative!important;
-      right: 0px!important;
-  }
-  .wpwl-container {
-    width: auto!important;
-}
-  }
-
-  @media only screen and (width: 768px) {
-  form.wpwl-form.wpwl-form-card.wpwl-clearfix {
-    position: relative!important;
-    right: 0px!important;
-    margin-left: 0px!important;
-}
-.wpwl-form-card {
-  width: 100%!important;
-  padding: 30px!important;
-  margin-left: -48px !important;
-}
-.wpwl-container {
-  width: auto!important;
-}
-.wpwl-form {
-  max-width: initial!important;
-}
-.wpwl-container input {
-  color: white;
-  font-size: 18px;
-  width: 12rem;
-}
-input.wpwl-control.wpwl-control-cardHolder {
-  width: 340px !important;
-}
-.wpwl-label {
-  width: 100%;
-  text-align: start;
-  font-size: 17px;
-}
-.wpwl-container .wpwl-group-cvv {
-  grid-area: CVV;
-  width: 100%!important;
-}
-  }
-  

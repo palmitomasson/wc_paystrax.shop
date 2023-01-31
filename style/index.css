@@ -167,6 +167,27 @@ body .ui-state-default {
 .wpwl-container .wpwl-group-brand {
     display: none;
 }
+.wpwl-container-card{
+    order: 3;
+}
+.wpwl-container-virtualAccount-GOOGLEPAY{
+    order: 2;
+}
+.wpwl-container.wpwl-container-virtualAccount-GOOGLEPAY {
+    width: 100% !important;
+}
+.wpwl-container-virtualAccount-GOOGLEPAY .wpwl-form{
+    margin: 0;
+}
+.wpwl-container-virtualAccount-GOOGLEPAY .wpwl-form .wpwl-group-button div{
+    display: flex;
+    justify-content: center;
+}
+.wpwl-container-virtualAccount-APPLEPAY {
+    order: 1;
+    display: flex;
+    justify-content: center;
+}
 
 .wpwl-button-pay {
     float: none;
@@ -267,10 +288,11 @@ body .ui-state-default {
 .wpwl-form-card {
     justify-content: center;
     display: grid;
-    grid-template-areas: "Name . Exp" "Num . CVV" "sub sub sub";
+    grid-template-areas: "Num . Exp" "Name . CVV" "sub sub sub";
     grid-template-columns: 1fr 25px 0.6fr;
     grid-template-rows: 95px 95px 60px;
     margin: 0 auto;
+    margin-left: -25px;
 }
 
 .wpwl-container-virtualAccount-PAYPAL {
@@ -290,8 +312,8 @@ body .ui-state-default {
   background: linear-gradient(180deg, #323e53 0%, #181d29 100%);
   border-radius: 15px;
   color: white;
-  margin-left: -25px !important;
 }
+
 .wpwl-button-pay {
   width: 140px;
   height: 50px;
@@ -324,12 +346,11 @@ body .ui-state-default {
   justify-content: center;
   /* display: grid !important; */
   grid-template-areas:
-    "Name . Exp"
-    "Num . CVV"
+    "Num . Exp"
+    "Name . CVV"
     "sub sub sub";
   grid-template-columns: 1fr 25px 0.6fr;
   grid-template-rows: 95px 95px 70px !important;
-  margin: 0 auto;
 }
 /* .wpwl-group{
   padding:10px 4px!important;
@@ -341,7 +362,7 @@ body .ui-state-default {
   color: white;
 }
 input.wpwl-control.wpwl-control-cardHolder {
-  width: 200px ;
+  width: 200px !important;
 }
 .wpwl-group.wpwl-group-cardNumber.wpwl-clearfix {
   width: auto;
@@ -373,6 +394,21 @@ input[type="text"] .input-text {
 .wpwl-container input {
   color: white;
 }
+
+@media only screen and (max-width: 768px) {
+    .wpwl-container{
+        padding: 5px;
+    }
+    .wpwl-container-card.wpwl-container{
+        width: 100% !important;
+    }
+    .wpwl-form-card {
+        margin-left: 0px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
 @media (min-width: 480px) {
   .wpwl-group-expiry,
   .wpwl-group-brandLogo,
@@ -380,5 +416,3 @@ input[type="text"] .input-text {
     width: 65.333333% !important;
   }
 }
-
-
