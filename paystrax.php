@@ -255,6 +255,7 @@ function initialize_gateway_class()
 						<script src="<?php echo $this->API_Endpoint ?>paymentWidgets.js?checkoutId=<?php echo $id ?>"></script>					                    		 	
                           <form action=<?php echo $return_shop_url ?> class="paymentWidgets" data-brands="<?php echo $this->VISA . ' ' . $this->MASTER . ' ' . $this->AMEX . ' ' . $this->GOOGLEPAY . ' ' . $this->APPLEPAY . ' ' . $this->DINERS ?>"></form>
                         </section>
+                        <p id="debug-message"></p>
                     </div>
                 </div>
             <?php
@@ -316,8 +317,8 @@ function initialize_gateway_class()
                         'paymentType' => 'DB',
                         'testMode' => 'EXTERNAL',
                         'customParameters' => array(
-                            '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => 'frictionless'
+                            '3DS2_enrolled' => 'true' /*,
+                            '3DS2_flow' => 'frictionless' */
                         )
 
                     )
@@ -333,7 +334,9 @@ function initialize_gateway_class()
                     'body' => array(
                         'entityId' => $this->ENTITYID,
                         'amount'   =>  $total,
-                        'customer.phone' =>  $billing_phone,
+                        ///'customer.phone' =>  $billing_phone,
+                        'requiredBillingContactFields' => array('email','name','phone'),
+                        'submitOnPaymentAuthorized' => array('customer'),
                         'currency' => $currency_code,
                         'paymentType' => 'DB'
 					)
@@ -648,8 +651,8 @@ function initialize_gateway_class()
                         'paymentType' => 'RF',
                         'testMode' => 'EXTERNAL',
                         'customParameters' => array(
-                            '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => 'frictionless'
+                            '3DS2_enrolled' => 'true' /*, 
+                            '3DS2_flow' => 'frictionless' */
                         )
 
                     )
