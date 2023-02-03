@@ -6,32 +6,32 @@ var wpwlOptions = {
     	// Validate card holder only when submitting card number directly (not for ApplePay)
         $('.wpwl-form-card').find('.wpwl-button-pay').on('click', function (e) {
             validateHolder(e);
-            alert('blax');
+            //alert('blax');
 
         });
     },
-    onPaymentMethodSelected: function (payment) {
-        alert('blaxx');
-        console.log("onPaymentAuthorized payment: " + JSON.stringify(payment));
-        document.getElementById('debug-message').innerHTML = JSON.stringify(payment);
-        /*return {
-            // Possible values: SUCCESS, FAILURE
-            status: "FAILURE",
+    // onPaymentMethodSelected: function (payment) {
+        // //alert('blaxx');
+        // console.log("onPaymentAuthorized payment: " + JSON.stringify(payment));
+        // document.getElementById('debug-message').innerHTML = JSON.stringify(payment);
+        // /*return {
+            // // Possible values: SUCCESS, FAILURE
+            // status: "FAILURE",
 
-            errors: [{
-                // Possible values: shippingContactInvalid, billingContactInvalid,
-                // addressUnserviceable
-                code: "shippingContactInvalid",
+            // errors: [{
+                // // Possible values: shippingContactInvalid, billingContactInvalid,
+                // // addressUnserviceable
+                // code: "shippingContactInvalid",
 
-                // Possible values: phoneNumber, emailAddress, name, phoneticName,
-                // postalAddress, addressLines, locality, subLocality, postalCode,
-                // administrativeArea, subAdministrativeArea, country, countryCode
-                contactField: "phoneNumber",
+                // // Possible values: phoneNumber, emailAddress, name, phoneticName,
+                // // postalAddress, addressLines, locality, subLocality, postalCode,
+                // // administrativeArea, subAdministrativeArea, country, countryCode
+                // contactField: "phoneNumber",
 
-                message: "Invalid phone number"
-            }]
-        };*/
-    },
+                // message: "Invalid phone number"
+            // }]
+        // };*/
+    // },
     googlePay: {
         gatewayMerchantId: localStorage.getItem('entityId'),
         allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
@@ -65,27 +65,27 @@ var wpwlOptions = {
         onCancel: function () {
             console.log("onCancel");
         },
-        onPaymentAuthorized: function (payment) {
-            console.log("onPaymentAuthorized payment: " + JSON.stringify(payment));
-            document.getElementById('debug-message').innerHTML = JSON.stringify(payment);
-            /*return {
-                // Possible values: SUCCESS, FAILURE
-                status: "FAILURE",
+        // onPaymentAuthorized: function (payment) {
+            // console.log("onPaymentAuthorized payment: " + JSON.stringify(payment));
+            // document.getElementById('debug-message').innerHTML = JSON.stringify(payment);
+            // /*return {
+                // // Possible values: SUCCESS, FAILURE
+                // status: "FAILURE",
 
-                errors: [{
-                    // Possible values: shippingContactInvalid, billingContactInvalid,
-                    // addressUnserviceable
-                    code: "shippingContactInvalid",
+                // errors: [{
+                    // // Possible values: shippingContactInvalid, billingContactInvalid,
+                    // // addressUnserviceable
+                    // code: "shippingContactInvalid",
 
-                    // Possible values: phoneNumber, emailAddress, name, phoneticName,
-                    // postalAddress, addressLines, locality, subLocality, postalCode,
-                    // administrativeArea, subAdministrativeArea, country, countryCode
-                    contactField: "phoneNumber",
+                    // // Possible values: phoneNumber, emailAddress, name, phoneticName,
+                    // // postalAddress, addressLines, locality, subLocality, postalCode,
+                    // // administrativeArea, subAdministrativeArea, country, countryCode
+                    // contactField: "phoneNumber",
 
-                    message: "Invalid phone number"
-                }]
-            };*/
-        },
+                    // message: "Invalid phone number"
+                // }]
+            // };*/
+        // },
     }
 }
 

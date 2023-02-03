@@ -86,6 +86,9 @@ function initialize_gateway_class()
                 $this->TOKEN = $this->test_mode ? $this->get_option('test_TOKEN') : $this->get_option('Live_TOKEN');
                 $this->ENTITYID = $this->test_mode ? $this->get_option('test_ENTITYID') : $this->get_option('Live_ENTITYID');
                 $this->API_Endpoint = $this->test_mode ? $this->get_option('Test_API_URL') : $this->get_option('Live_API_URL');
+				$this->custom_logs('==== endpoint url =' . $this->API_Endpoint);
+				$this->custom_logs('==== trestmode  =' . $this->test_mode);
+
 
                 //Payment Brands
                 $this->MASTER = 'yes' === $this->get_option('MASTER') ? 'MASTER' : '';
@@ -362,6 +365,7 @@ function initialize_gateway_class()
 
                 $this->custom_logs('==== checkout id =' . $checkoutID);
                 WC()->session->set('Checkout-ID', $checkoutID);
+				$this->custom_logs('==== endpoint url =' . $this->API_Endpoint);
                 $this->custom_logs('==== end prepare the checkout=========');
             }
             /**
@@ -454,7 +458,7 @@ function initialize_gateway_class()
                         </script>
 <?php
                     }
-                    $this->custom_logs($msg);
+                    $this->custom_logs($msg);			
                     $this->custom_logs('end payment_response_afterPay');
                 }
             }
