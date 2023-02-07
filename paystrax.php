@@ -87,7 +87,7 @@ function initialize_gateway_class()
                 $this->ENTITYID = $this->test_mode ? $this->get_option('test_ENTITYID') : $this->get_option('Live_ENTITYID');
                 $this->API_Endpoint = $this->test_mode ? $this->get_option('Test_API_URL') : $this->get_option('Live_API_URL');
 				$this->custom_logs('==== endpoint url =' . $this->API_Endpoint);
-				$this->custom_logs('==== trestmode  =' . $this->test_mode);
+				$this->custom_logs('==== testmode  =' . $this->test_mode);
 
 
                 //Payment Brands
@@ -337,9 +337,10 @@ function initialize_gateway_class()
                     'body' => array(
                         'entityId' => $this->ENTITYID,
                         'amount'   =>  $total,
-                        ///'customer.phone' =>  $billing_phone,
-                        'requiredBillingContactFields' => array('email','name','phone'),
-                        'submitOnPaymentAuthorized' => array('customer'),
+                        'customer.phone' =>  $billing_phone,
+						// PT : uncommented above line and commented next 2 
+                        //'requiredBillingContactFields' => array('email','name','phone'),
+                        //'submitOnPaymentAuthorized' => array('customer'),
                         'currency' => $currency_code,
                         'paymentType' => 'DB'
 					)
