@@ -86,6 +86,7 @@ function initialize_gateway_class()
                 $this->TOKEN = $this->test_mode ? $this->get_option('test_TOKEN') : $this->get_option('Live_TOKEN');
                 $this->ENTITYID = $this->test_mode ? $this->get_option('test_ENTITYID') : $this->get_option('Live_ENTITYID');
                 $this->API_Endpoint = $this->test_mode ? $this->get_option('Test_API_URL') : $this->get_option('Live_API_URL');
+				$this->GPAY_MID = $this->test_mode ? '' : $this->get_option('Google_merchantId');
 
 
                 //Payment Brands
@@ -273,8 +274,10 @@ function initialize_gateway_class()
                 <script>
                     let language = "<?php echo $this->Language ?>";
                     let entityId = "<?php echo $this->ENTITYID ?>";
+					let merchantId = "<?php echo $this->GPAY_MID ?>";
                     localStorage.setItem('entityId', entityId);
                     localStorage.setItem('language', language);
+                    localStorage.setItem('merchantId', merchantId);
                 </script>
                 <?php
 
@@ -840,8 +843,8 @@ function initialize_gateway_class()
 							'paymentType' => 'RF',
 							'testMode' => 'EXTERNAL',
 							'customParameters' => array(
-								'3DS2_enrolled' => 'true',
-								'3DS2_flow' => 'frictionless'
+								'3DS2_enrolled' => 'true' /*,
+								'3DS2_flow' => 'frictionless' */
 							)
 						)
 					);

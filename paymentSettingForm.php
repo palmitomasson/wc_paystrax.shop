@@ -117,6 +117,13 @@ $form = array(
         'desc_tip'    => true,
         'class'       => 'wppd-ui-toggle'
     ),
+    'Google_merchantId' => array(
+        'title'       => __('Google merchantId', 'text-domain'),
+        'type'        => 'text',
+        'description' => __('Google Merchantid for enabled Google Pay merchant.', 'text-domain'),
+        'default'     => __('', 'text-domain'),
+        'desc_tip'    => true,
+    ),
     'APPLEPAY' => array(
         //'title'       => __('ApplePay', 'text-domain'),
         'label'       => __('ApplePay', 'text-domain'),

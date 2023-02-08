@@ -34,8 +34,7 @@ var wpwlOptions = {
     // },
     googlePay: {
         gatewayMerchantId: localStorage.getItem('entityId'),
-		merchantId: 'BCR2DN4TQSP6VCSM',
-//		merchantName: 'PTomasson',
+		merchantId: localStorage.getItem('merchantId'),
         allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
         allowedCardNetworks: ["AMEX", "DISCOVER", "JCB", "MASTERCARD", "VISA"],
         submitOnPaymentAuthorized: ["customer", "billing"],
