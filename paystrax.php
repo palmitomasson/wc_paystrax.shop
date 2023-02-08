@@ -86,8 +86,6 @@ function initialize_gateway_class()
                 $this->TOKEN = $this->test_mode ? $this->get_option('test_TOKEN') : $this->get_option('Live_TOKEN');
                 $this->ENTITYID = $this->test_mode ? $this->get_option('test_ENTITYID') : $this->get_option('Live_ENTITYID');
                 $this->API_Endpoint = $this->test_mode ? $this->get_option('Test_API_URL') : $this->get_option('Live_API_URL');
-				$this->custom_logs('==== endpoint url =' . $this->API_Endpoint);
-				$this->custom_logs('==== testmode  =' . $this->test_mode);
 
 
                 //Payment Brands
@@ -644,7 +642,7 @@ function initialize_gateway_class()
 
 				if ($this->test_mode) {
                 $args = array(
-                    'method' => 'post',
+                    // 'method' => 'post',
                     'headers'     => array(
                         'Authorization' => 'Bearer ' . $this->TOKEN,
                         'Content-Type' => 'application/x-www-form-urlencoded',
@@ -665,7 +663,7 @@ function initialize_gateway_class()
 				}
 				else {
 				    $args = array(
-                    'method' => 'post',
+                    // 'method' => 'post',
                     'headers'     => array(
                         'Authorization' => 'Bearer ' . $this->TOKEN,
                         'Content-Type' => 'application/x-www-form-urlencoded',
@@ -828,43 +826,39 @@ function initialize_gateway_class()
 
                 //Refund API call.
                 $url = $this->API_Endpoint . "payments/" . $orderTransactionID;
-				if ($this->test_mode) {
-                $args = array(
-                    'method' => 'post',
-                    'headers'     => array(
-                        'Authorization' => 'Bearer ' . $this->TOKEN,
-                        'Content-Type' => 'application/x-www-form-urlencoded',
-                    ),
-                    'body' => array(
-                        'entityId' => $this->ENTITYID,
-                        'amount'   =>  $total,
-                        'customer.phone' =>  $billing_phone,
-                        'currency' => $currency_code,
-                        'paymentType' => 'RF',
-                        'testMode' => 'EXTERNAL',
-                        'customParameters' => array(
-                            '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => 'frictionless'
-                        )
-
-                    )
-                );
+				if ($this->test_mode) 
+				{
+					$args = array(
+						'headers'     => array(
+							'Authorization' => 'Bearer ' . $this->TOKEN,
+							'Content-Type' => 'application/x-www-form-urlencoded'
+						),
+						'body' => array(
+							'entityId' => $this->ENTITYID,
+							'amount'   => $amount,
+							'currency' =>  $currency,
+							'paymentType' => 'RF',
+							'testMode' => 'EXTERNAL',
+							'customParameters' => array(
+								'3DS2_enrolled' => 'true',
+								'3DS2_flow' => 'frictionless'
+							)
+						)
+					);
 				}
 				else {
-				    $args = array(
-                    'method' => 'post',
-                    'headers'     => array(
-                        'Authorization' => 'Bearer ' . $this->TOKEN,
-                        'Content-Type' => 'application/x-www-form-urlencoded',
-                    ),
-                    'body' => array(
-                        'entityId' => $this->ENTITYID,
-                        'amount'   =>  $total,
-                        'customer.phone' =>  $billing_phone,
-                        'currency' => $currency_code,
-                        'paymentType' => 'RF'
-					)
-				);
+					$args = array(
+						'headers'     => array(
+							'Authorization' => 'Bearer ' . $this->TOKEN,
+							'Content-Type' => 'application/x-www-form-urlencoded'
+						),
+						'body' => array(
+							'entityId' => $this->ENTITYID,
+							'amount'   => $amount,
+							'currency' =>  $currency,
+							'paymentType' => 'RF'
+						)
+					);
 				}
 
                 $response = wp_remote_post($url, $args);
@@ -872,7 +866,7 @@ function initialize_gateway_class()
 
                 if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
                     error_log(print_r($response, true));
-                    $this->custom_logs('Refund Failed..');
+                    $this->custom_logs('Refund Failed..' . $url);
                     return new WP_Error('error', $response->get_error_message());
                 }
                 $responseBody = wp_remote_retrieve_body($response);
