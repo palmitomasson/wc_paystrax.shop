@@ -61,6 +61,7 @@ var wpwlOptions = {
     },
     applePay: {
     	version: 1,
+    	style : "black",
 		supportedNetworks: ["amex", "discover", "masterCard", "visa"],
         // Triggered when the payment sheet is dismissed
         onCancel: function () {
