@@ -108,22 +108,6 @@ $form = array(
         'desc_tip'    => true,
         'class'       => 'wppd-ui-toggle'
     ),
-    'GOOGLEPAY' => array(
-        //'title'       => __('GooglePay', 'text-domain'),
-        'label'       => __('GooglePay', 'text-domain'),
-        'type'        => 'checkbox',
-        'description' => __('Add GooglePay as PAYMENT BRAND.', 'text-domain'),
-        'default'     => 'no',
-        'desc_tip'    => true,
-        'class'       => 'wppd-ui-toggle'
-    ),
-    'Google_merchantId' => array(
-        'title'       => __('Google merchantId', 'text-domain'),
-        'type'        => 'text',
-        'description' => __('Google Merchantid for enabled Google Pay merchant.', 'text-domain'),
-        'default'     => __('', 'text-domain'),
-        'desc_tip'    => true,
-    ),
     'APPLEPAY' => array(
         //'title'       => __('ApplePay', 'text-domain'),
         'label'       => __('ApplePay', 'text-domain'),
@@ -133,6 +117,33 @@ $form = array(
         'desc_tip'    => true,
         'class'       => 'wppd-ui-toggle'
     ),
+    'GOOGLEPAY' => array(
+        //'title'       => __('GooglePay', 'text-domain'),
+        'label'       => __('GooglePay', 'text-domain'),
+        'type'        => 'checkbox',
+        'description' => __('Add GooglePay as PAYMENT BRAND.', 'text-domain'),
+        'default'     => 'no',
+        'desc_tip'    => true,
+        'class'       => 'wppd-ui-toggle'
+    ),
+    'TD_Frictionless' => array(
+        //'title'       => __('Test mod 3D Frictionless', 'text-domain'),
+        'label'       => __('Test mode 3D Frictionless', 'text-domain'),
+        'type'        => 'checkbox',
+        'description' => __('Test for GooglePay frictionless.', 'text-domain'),
+        'default'     => 'no',
+        'desc_tip'    => true,
+        'class'       => 'wppd-ui-toggle'
+    ),
+    // GooglePay merchant id in production.
+    'Google_merchantId' => array(
+        'title'       => __('Google merchantId', 'text-domain'),
+        'type'        => 'text',
+        'description' => __('Google Merchantid for enabled Google Pay merchant.', 'text-domain'),
+        'default'     => __('', 'text-domain'),
+        'desc_tip'    => true,
+    ),
+
     'uploadFile' => array(
         'title'       => __('Add your own style', 'text-domain'),
         'label'       => __('File', 'text-domain'),

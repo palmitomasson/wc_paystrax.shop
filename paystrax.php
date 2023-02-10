@@ -321,8 +321,12 @@ function initialize_gateway_class()
                         'paymentType' => 'DB',
                         'testMode' => 'EXTERNAL',
                         'customParameters' => array(
-                            '3DS2_enrolled' => 'true' /*,
-                            '3DS2_flow' => 'frictionless' */
+                            '3DS2_enrolled' => 'true',
+                            '3DS2_flow' => ($this->TD_Frictionless<>'no' ? 'frictionless' : '')
+                            /*if($this->3D_Frictionless <> 'no') {
+                                , '3DS2_flow' => 'frictionless'
+                            }*/
+                            /*,  '3DS2_flow' => 'frictionless' */
                         )
 
                     )
@@ -348,7 +352,7 @@ function initialize_gateway_class()
 				);
 				}
 				
-				// print_r ($args);	
+				//print_r ($args);
                 $response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
                 $this->custom_logs($args);
                 if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
@@ -657,7 +661,12 @@ function initialize_gateway_class()
                         'paymentType' => 'RF',
                         'testMode' => 'EXTERNAL',
                         'customParameters' => array(
-                            '3DS2_enrolled' => 'true' /*, 
+                            '3DS2_enrolled' => 'true',
+                            '3DS2_flow' => ($this->TD_Frictionless<>'no' ? 'frictionless' : '')
+                            /*if($this->3D_Frictionless <> 'no') {
+                                , '3DS2_flow' => 'frictionless'
+                            }*/
+                            /*,
                             '3DS2_flow' => 'frictionless' */
                         )
 
@@ -843,8 +852,12 @@ function initialize_gateway_class()
 							'paymentType' => 'RF',
 							'testMode' => 'EXTERNAL',
 							'customParameters' => array(
-								'3DS2_enrolled' => 'true' /*,
-								'3DS2_flow' => 'frictionless' */
+								'3DS2_enrolled' => 'true',
+                                '3DS2_flow' => ($this->TD_Frictionless<>'no' ? 'frictionless' : '')
+                             /*if($this->3D_Frictionless <> 'no') {
+								    , '3DS2_flow' => 'frictionless'
+								}*/
+								/*, '3DS2_flow' => 'frictionless' */
 							)
 						)
 					);
