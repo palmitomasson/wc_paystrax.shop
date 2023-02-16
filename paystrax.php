@@ -97,6 +97,8 @@ function initialize_gateway_class()
                 $this->GOOGLEPAY = 'no' === $this->get_option('GOOGLEPAY') ? '' : 'GOOGLEPAY';
                 $this->APPLEPAY = 'no' === $this->get_option('APPLEPAY') ? '' : 'APPLEPAY';
                 $this->Language = $this->get_option('selectLanguage');
+                $this->TD_Frictionless = 'no' === $this->get_option('TD_Frictionless') ? '' : 'frictionless';
+                $this->TEST_EXTERNAL = 'no' === $this->get_option('TEST_EXTERNAL') ? '' : 'EXTERNAL';
                 // Action hook to saves the settings
                 if (is_admin()) {
                     add_action('woocommerce_update_options_payment_gateways_' . $this->id, array(&$this, 'process_admin_options'));
@@ -319,14 +321,10 @@ function initialize_gateway_class()
                         'customer.phone' =>  $billing_phone,
                         'currency' => $currency_code,
                         'paymentType' => 'DB',
-                        'testMode' => 'EXTERNAL',
+                        'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
                             '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => ($this->TD_Frictionless<>'no' ? 'frictionless' : '')
-                            /*if($this->3D_Frictionless <> 'no') {
-                                , '3DS2_flow' => 'frictionless'
-                            }*/
-                            /*,  '3DS2_flow' => 'frictionless' */
+                            '3DS2_flow' => $this->TD_Frictionless
                         )
 
                     )
@@ -659,15 +657,10 @@ function initialize_gateway_class()
                         'amount'   => $amount,
                         'currency' => $currency,
                         'paymentType' => 'RF',
-                        'testMode' => 'EXTERNAL',
+                        'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
                             '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => ($this->TD_Frictionless<>'no' ? 'frictionless' : '')
-                            /*if($this->3D_Frictionless <> 'no') {
-                                , '3DS2_flow' => 'frictionless'
-                            }*/
-                            /*,
-                            '3DS2_flow' => 'frictionless' */
+                            '3DS2_flow' => $this->TD_Frictionless
                         )
 
                     )
@@ -850,14 +843,10 @@ function initialize_gateway_class()
 							'amount'   => $amount,
 							'currency' =>  $currency,
 							'paymentType' => 'RF',
-							'testMode' => 'EXTERNAL',
+							'testMode' => $this->TEST_EXTERNAL,
 							'customParameters' => array(
 								'3DS2_enrolled' => 'true',
-                                '3DS2_flow' => ($this->TD_Frictionless<>'no' ? 'frictionless' : '')
-                             /*if($this->3D_Frictionless <> 'no') {
-								    , '3DS2_flow' => 'frictionless'
-								}*/
-								/*, '3DS2_flow' => 'frictionless' */
+                            '3DS2_flow' => $this->TD_Frictionless
 							)
 						)
 					);

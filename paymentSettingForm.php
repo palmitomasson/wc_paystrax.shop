@@ -135,7 +135,15 @@ $form = array(
         'desc_tip'    => true,
         'class'       => 'wppd-ui-toggle'
     ),
-    // GooglePay merchant id in production.
+    'TEST_EXTERNAL' => array(
+        //'title'       => __('Test mode EXTERNAL', 'text-domain'),
+        'label'       => __('Test mode EXTERNAL', 'text-domain'),
+        'type'        => 'checkbox',
+        'description' => __('Test payment to test schema.', 'text-domain'),
+        'default'     => 'no',
+        'desc_tip'    => true,
+        'class'       => 'wppd-ui-toggle'
+    ),    // GooglePay merchant id in production.
     'Google_merchantId' => array(
         'title'       => __('Google merchantId', 'text-domain'),
         'type'        => 'text',
