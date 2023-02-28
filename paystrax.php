@@ -269,7 +269,7 @@ function initialize_gateway_class()
              *
              * @return null
              */
-            public function on_checkout_prepare_the_checkout_ID()
+            public function on_checkout_prepare_the_checkout_ID($order_id)
             {
             ?>
                 <div id='payment_success_msg'></div>
@@ -283,7 +283,7 @@ function initialize_gateway_class()
                 </script>
                 <?php
 
-                global $woocommerce;
+                global $woocommerce , $post;
                 
                 $items            = $woocommerce->cart->get_cart();
                 $cart_subtotal    = $woocommerce->cart->subtotal;
@@ -308,6 +308,17 @@ function initialize_gateway_class()
 					)
 				);
 */
+                // Get the post ID
+                //$order_id = $post->ID;
+
+                // Then you can get the order object
+//                 $order = new WC_Order($post->ID); // This way
+                //$order_id = trim(str_replace('#', '', $order->get_order_number()));
+                //$order_id = '123';
+                //$order_number = '172'; //wc_get_order(  $post->ID ); // Or this way
+                //$order_id = $NEW_order->get_id();
+//                $order_number = $order->get_id();
+
 				if ($this->test_mode) {
                 $args = array(
                     'method' => 'post',
@@ -323,6 +334,7 @@ function initialize_gateway_class()
                         'paymentType' => 'DB',
                         'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
+                            'SHOPPER_PaymentId' => $order_id,
                             '3DS2_enrolled' => 'true',
                             '3DS2_flow' => $this->TD_Frictionless
                         )
@@ -350,7 +362,8 @@ function initialize_gateway_class()
 				);
 				}
 				
-				//print_r ($args);
+// 				print_r ($args);
+				$this->custom_logs('inside on_checkout_prepare_the_checkout_ID: ' . $args);
                 $response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
                 $this->custom_logs($args);
                 if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
@@ -475,15 +488,16 @@ function initialize_gateway_class()
              */
             public function process_payment($order_id)
             {
-                global $woocommerce;
+                global $woocommerce, $order_number;
                 $order = new WC_Order($order_id);
-                $this->custom_logs('start payment process');
+                $this->custom_logs('start payment process line - 493');
                 $transactionID = WC()->session->get('referencedPaymentId');
                 $statusCode = WC()->session->get('statusCode');
 
                 $order->set_transaction_id($transactionID);
                 $order->save();
-
+                $order_number = $order->get_id();
+                $this->custom_logs('ORDER NUMBER: ' . $order_number);
                 $this->custom_logs($order);
                 $this->custom_logs('payment status ' .  $statusCode);
                 $order->update_status('pending', __('paystrax', 'woocommerce'));
@@ -659,6 +673,7 @@ function initialize_gateway_class()
                         'paymentType' => 'RF',
                         'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
+//                            'SHOPPER_PaymentId' => $this->Order_id,
                             '3DS2_enrolled' => 'true',
                             '3DS2_flow' => $this->TD_Frictionless
                         )
@@ -845,6 +860,7 @@ function initialize_gateway_class()
 							'paymentType' => 'RF',
 							'testMode' => $this->TEST_EXTERNAL,
 							'customParameters' => array(
+//                            'SHOPPER_PaymentId' => $this->Order_id,
 								'3DS2_enrolled' => 'true',
                             '3DS2_flow' => $this->TD_Frictionless
 							)
@@ -964,8 +980,10 @@ function initialize_gateway_class()
                     array($this, 'get_payment_response_after_Payment')
                 );
             }
+
         }
         add_action('init', array('WC_Paystrax_Gateway', 'init'));
         include "webhookdatastore.php";
     }
+
 }

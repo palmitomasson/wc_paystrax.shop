@@ -10,11 +10,12 @@ var wpwlOptions = {
     },
     
         
-    onLoadThreeDIframe: function () {
-        console.log('Global');
-        document.getElementsByClassName('wpwl-container-virtualAccount-APPLEPAY')[0].style.display = 'none';
-        document.getElementsByClassName('wpwl-container-virtualAccount-GOOGLEPAY')[0].style.display = 'none';
-    },
+   onLoadThreeDIframe: function () {
+       console.log('Global');
+       document.getElementsByClassName('wpwl-container-virtualAccount-APPLEPAY')[0].style.display = 'none';
+       document.getElementsByClassName('gpay-card-info-container')[0].style.display = 'none';
+       document.getElementsByClassName('wpwl-form-card')[0].style.display = 'none';
+   },
     // onPaymentMethodSelected: function (payment) {
         // //alert('blaxx');
         // console.log("onPaymentAuthorized payment: " + JSON.stringify(payment));
