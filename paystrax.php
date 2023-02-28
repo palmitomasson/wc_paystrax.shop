@@ -86,6 +86,8 @@ function initialize_gateway_class()
                 $this->TOKEN = $this->test_mode ? $this->get_option('test_TOKEN') : $this->get_option('Live_TOKEN');
                 $this->ENTITYID = $this->test_mode ? $this->get_option('test_ENTITYID') : $this->get_option('Live_ENTITYID');
                 $this->API_Endpoint = $this->test_mode ? $this->get_option('Test_API_URL') : $this->get_option('Live_API_URL');
+				$this->GPAY_MID = $this->test_mode ? '' : $this->get_option('Google_merchantId');
+
 
                 //Payment Brands
                 $this->MASTER = 'yes' === $this->get_option('MASTER') ? 'MASTER' : '';
@@ -95,6 +97,8 @@ function initialize_gateway_class()
                 $this->GOOGLEPAY = 'no' === $this->get_option('GOOGLEPAY') ? '' : 'GOOGLEPAY';
                 $this->APPLEPAY = 'no' === $this->get_option('APPLEPAY') ? '' : 'APPLEPAY';
                 $this->Language = $this->get_option('selectLanguage');
+                $this->TD_Frictionless = 'no' === $this->get_option('TD_Frictionless') ? '' : 'frictionless';
+                $this->TEST_EXTERNAL = 'no' === $this->get_option('TEST_EXTERNAL') ? '' : 'EXTERNAL';
                 // Action hook to saves the settings
                 if (is_admin()) {
                     add_action('woocommerce_update_options_payment_gateways_' . $this->id, array(&$this, 'process_admin_options'));
@@ -255,6 +259,7 @@ function initialize_gateway_class()
 						<script src="<?php echo $this->API_Endpoint ?>paymentWidgets.js?checkoutId=<?php echo $id ?>"></script>					                    		 	
                           <form action=<?php echo $return_shop_url ?> class="paymentWidgets" data-brands="<?php echo $this->VISA . ' ' . $this->MASTER . ' ' . $this->AMEX . ' ' . $this->GOOGLEPAY . ' ' . $this->APPLEPAY . ' ' . $this->DINERS ?>"></form>
                         </section>
+                        <p id="debug-message"></p>
                     </div>
                 </div>
             <?php
@@ -271,8 +276,10 @@ function initialize_gateway_class()
                 <script>
                     let language = "<?php echo $this->Language ?>";
                     let entityId = "<?php echo $this->ENTITYID ?>";
+					let merchantId = "<?php echo $this->GPAY_MID ?>";
                     localStorage.setItem('entityId', entityId);
                     localStorage.setItem('language', language);
+                    localStorage.setItem('merchantId', merchantId);
                 </script>
                 <?php
 
@@ -314,10 +321,10 @@ function initialize_gateway_class()
                         'customer.phone' =>  $billing_phone,
                         'currency' => $currency_code,
                         'paymentType' => 'DB',
-                        'testMode' => 'EXTERNAL',
+                        'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
                             '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => 'frictionless'
+                            '3DS2_flow' => $this->TD_Frictionless
                         )
 
                     )
@@ -334,13 +341,16 @@ function initialize_gateway_class()
                         'entityId' => $this->ENTITYID,
                         'amount'   =>  $total,
                         'customer.phone' =>  $billing_phone,
+						// PT : uncommented above line and commented next 2 
+                        //'requiredBillingContactFields' => array('email','name','phone'),
+                        //'submitOnPaymentAuthorized' => array('customer'),
                         'currency' => $currency_code,
                         'paymentType' => 'DB'
 					)
 				);
 				}
 				
-				// print_r ($args);	
+				//print_r ($args);
                 $response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
                 $this->custom_logs($args);
                 if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
@@ -359,6 +369,7 @@ function initialize_gateway_class()
 
                 $this->custom_logs('==== checkout id =' . $checkoutID);
                 WC()->session->set('Checkout-ID', $checkoutID);
+				$this->custom_logs('==== endpoint url =' . $this->API_Endpoint);
                 $this->custom_logs('==== end prepare the checkout=========');
             }
             /**
@@ -451,7 +462,7 @@ function initialize_gateway_class()
                         </script>
 <?php
                     }
-                    $this->custom_logs($msg);
+                    $this->custom_logs($msg);			
                     $this->custom_logs('end payment_response_afterPay');
                 }
             }
@@ -636,7 +647,7 @@ function initialize_gateway_class()
 
 				if ($this->test_mode) {
                 $args = array(
-                    'method' => 'post',
+                    // 'method' => 'post',
                     'headers'     => array(
                         'Authorization' => 'Bearer ' . $this->TOKEN,
                         'Content-Type' => 'application/x-www-form-urlencoded',
@@ -646,10 +657,10 @@ function initialize_gateway_class()
                         'amount'   => $amount,
                         'currency' => $currency,
                         'paymentType' => 'RF',
-                        'testMode' => 'EXTERNAL',
+                        'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
                             '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => 'frictionless'
+                            '3DS2_flow' => $this->TD_Frictionless
                         )
 
                     )
@@ -657,7 +668,7 @@ function initialize_gateway_class()
 				}
 				else {
 				    $args = array(
-                    'method' => 'post',
+                    // 'method' => 'post',
                     'headers'     => array(
                         'Authorization' => 'Bearer ' . $this->TOKEN,
                         'Content-Type' => 'application/x-www-form-urlencoded',
@@ -820,43 +831,39 @@ function initialize_gateway_class()
 
                 //Refund API call.
                 $url = $this->API_Endpoint . "payments/" . $orderTransactionID;
-				if ($this->test_mode) {
-                $args = array(
-                    'method' => 'post',
-                    'headers'     => array(
-                        'Authorization' => 'Bearer ' . $this->TOKEN,
-                        'Content-Type' => 'application/x-www-form-urlencoded',
-                    ),
-                    'body' => array(
-                        'entityId' => $this->ENTITYID,
-                        'amount'   =>  $total,
-                        'customer.phone' =>  $billing_phone,
-                        'currency' => $currency_code,
-                        'paymentType' => 'RF',
-                        'testMode' => 'EXTERNAL',
-                        'customParameters' => array(
-                            '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => 'frictionless'
-                        )
-
-                    )
-                );
+				if ($this->test_mode) 
+				{
+					$args = array(
+						'headers'     => array(
+							'Authorization' => 'Bearer ' . $this->TOKEN,
+							'Content-Type' => 'application/x-www-form-urlencoded'
+						),
+						'body' => array(
+							'entityId' => $this->ENTITYID,
+							'amount'   => $amount,
+							'currency' =>  $currency,
+							'paymentType' => 'RF',
+							'testMode' => $this->TEST_EXTERNAL,
+							'customParameters' => array(
+								'3DS2_enrolled' => 'true',
+                            '3DS2_flow' => $this->TD_Frictionless
+							)
+						)
+					);
 				}
 				else {
-				    $args = array(
-                    'method' => 'post',
-                    'headers'     => array(
-                        'Authorization' => 'Bearer ' . $this->TOKEN,
-                        'Content-Type' => 'application/x-www-form-urlencoded',
-                    ),
-                    'body' => array(
-                        'entityId' => $this->ENTITYID,
-                        'amount'   =>  $total,
-                        'customer.phone' =>  $billing_phone,
-                        'currency' => $currency_code,
-                        'paymentType' => 'RF'
-					)
-				);
+					$args = array(
+						'headers'     => array(
+							'Authorization' => 'Bearer ' . $this->TOKEN,
+							'Content-Type' => 'application/x-www-form-urlencoded'
+						),
+						'body' => array(
+							'entityId' => $this->ENTITYID,
+							'amount'   => $amount,
+							'currency' =>  $currency,
+							'paymentType' => 'RF'
+						)
+					);
 				}
 
                 $response = wp_remote_post($url, $args);
@@ -864,7 +871,7 @@ function initialize_gateway_class()
 
                 if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
                     error_log(print_r($response, true));
-                    $this->custom_logs('Refund Failed..');
+                    $this->custom_logs('Refund Failed..' . $url);
                     return new WP_Error('error', $response->get_error_message());
                 }
                 $responseBody = wp_remote_retrieve_body($response);
