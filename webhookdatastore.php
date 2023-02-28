@@ -46,15 +46,12 @@ function edit_data()
     echo "</table>";
 }
 
-register_activation_hook(__FILE__,  'activate');
-
-function activate()
+function plugin_activate()
 {
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
     $table_name = $wpdb->prefix . 'webhookData';
-    $sql = "DROP TABLE IF EXISTS $table_name;
-            CREATE TABLE $table_name(
+    $sql = "CREATE TABLE $table_name(
             id int(10) NOT NULL AUTO_INCREMENT,
             transactionID varchar(50) NOT NULL,
             paymenttype varchar(250) NOT NULL,
@@ -64,10 +61,17 @@ function activate()
             CustomerEmail varchar (250),
             PRIMARY KEY id(id)
         ) $charset_collate;";
-
+        error_log('table should be created');
+        error_log(ABSPATH);
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
     dbDelta($sql);
 }
+
+register_activation_hook(__FILE__,  'plugin_activate');
+// register_activation_hook(PLUGIN_FILE_URL ,array('WC_Paystrax_Gateway', 'activate') );
+error_log('-- activate create table --' . __FILE__ );
+
 
 global $wpdb;
 $charset_collate = $wpdb->get_charset_collate();

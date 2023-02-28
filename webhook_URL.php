@@ -1,6 +1,28 @@
 <?php
 $path = preg_replace('/wp-content.*$/', '', __DIR__);
 include($path . 'wp-load.php');
+
+function maybe_create_table( $table_name, $create_ddl ) {
+	global $wpdb;
+
+	$query = $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table_name ) );
+//     custom_logs($query);
+    error_log('-- create table --' . $query );
+	if ( $wpdb->get_var( $query ) === $table_name ) {
+		return true;
+	}
+
+	// Didn't find it, so try to create it.
+	$wpdb->query( $create_ddl );
+
+	// We cannot directly tell that whether this succeeded!
+	if ( $wpdb->get_var( $query ) === $table_name ) {
+		return true;
+	}
+
+	return false;
+}
+
 function webhook()
 {
 	$server_data = $_SERVER;
@@ -13,6 +35,17 @@ function webhook()
 	global $wpdb;
 	$charset_collate = $wpdb->get_charset_collate();
 	$table_name = $wpdb->prefix . 'webhookData';
+	$create_ddl = "CREATE TABLE $table_name(
+                      id int(10) NOT NULL AUTO_INCREMENT,
+                      transactionID varchar(50) NOT NULL,
+                      paymenttype varchar(250) NOT NULL,
+                      statuscode varchar(250) NOT NULL,
+                      description varchar (250) NOT NULL,
+                      timestamp varchar (250) NOT NULL,
+                      CustomerEmail varchar (250),
+                      PRIMARY KEY id(id)
+                ) $charset_collate;";
+	maybe_create_table( $table_name, $create_ddl );
 	if (isset($notification_data)) {
 		if (isset($HTTP_X_INITIALIZATION_VECTOR, $HTTP_X_AUTHENTICATION_TAG)) {
 			$key = hex2bin($key_from_configuration);

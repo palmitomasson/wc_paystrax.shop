@@ -173,8 +173,16 @@ body .ui-state-default {
 .wpwl-container-virtualAccount-GOOGLEPAY{
     order: 2;
 }
-.wpwl-container.wpwl-container-virtualAccount-GOOGLEPAY {
-    width: 100% !important;
+.wpwl-container.wpwl-container-virtualAccount-GOOGLEPAY,.wpwl-container-virtualAccount-APPLEPAY {
+    width: max-content;
+    height: max-content;
+    margin: 5px auto;
+    padding: 5px 5px;
+}
+.wpwl-apple-pay-button{
+    width: 238px !important;
+    height: 46px;
+    border-radius: 25px;
 }
 .wpwl-container-virtualAccount-GOOGLEPAY .wpwl-form{
     margin: 0;
@@ -185,8 +193,10 @@ body .ui-state-default {
 }
 .wpwl-container-virtualAccount-APPLEPAY {
     order: 1;
-    display: flex;
-    justify-content: center;
+    height: 46px;
+}
+.wpwl-container-virtualAccount-APPLEPAY .iframe{
+    margin: auto;
 }
 
 .wpwl-button-pay {
@@ -315,7 +325,7 @@ body .ui-state-default {
 }
 
 .wpwl-button-pay {
-  width: 140px;
+  width: 238px;
   height: 50px;
   border: 2px solid #3a4558;
   border-radius: 30px;
