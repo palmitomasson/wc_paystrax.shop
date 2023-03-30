@@ -1,1 +1,1 @@
-"# wc_paystrax.shop" 
+"# wp_paystrax.shop" 

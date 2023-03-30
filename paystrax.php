@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Paystrax
  * Plugin URI:        https://example.com/plugins/the-basics/
- * Description:       Paystrax payment plugin for accepting the muliple cards.
+ * Description:       Paystrax payment plugin for accepting multiple cards.
  * Version:           1.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
@@ -292,32 +292,8 @@ function initialize_gateway_class()
                 $currency_code    = get_woocommerce_currency();
                 $billing_phone    = WC()->customer->get_billing_phone();
                 
-/*
-                $args = array(
-                    'method' => 'post',
-                    'headers'     => array(
-                        'Authorization' => 'Bearer ' . $this->TOKEN,
-                        'Content-Type' => 'application/x-www-form-urlencoded',
-                    ),
-                    'body' => array(
-                        'entityId' => $this->ENTITYID,
-                        'amount'   =>  $total,
-                        'customer.phone' =>  $billing_phone,
-                        'currency' => $currency_code,
-                        'paymentType' => 'DB'
-					)
-				);
-*/
-                // Get the post ID
-                //$order_id = $post->ID;
-
-                // Then you can get the order object
-//                 $order = new WC_Order($post->ID); // This way
-                //$order_id = trim(str_replace('#', '', $order->get_order_number()));
-                //$order_id = '123';
-                //$order_number = '172'; //wc_get_order(  $post->ID ); // Or this way
-                //$order_id = $NEW_order->get_id();
-//                $order_number = $order->get_id();
+                $latest_order_id = $this->get_last_order_id(); // Last order ID
+                $new_order_id = $latest_order_id + 1;
 
 				if ($this->test_mode) {
                 $args = array(
@@ -332,9 +308,10 @@ function initialize_gateway_class()
                         'customer.phone' =>  $billing_phone,
                         'currency' => $currency_code,
                         'paymentType' => 'DB',
+                        'merchantTransactionId' => $new_order_id,
                         'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
-                            'SHOPPER_PaymentId' => $order_id,
+                            'SHOPPER_PaymentId' => $new_order_id,
                             '3DS2_enrolled' => 'true',
                             '3DS2_flow' => $this->TD_Frictionless
                         )
@@ -357,12 +334,16 @@ function initialize_gateway_class()
                         //'requiredBillingContactFields' => array('email','name','phone'),
                         //'submitOnPaymentAuthorized' => array('customer'),
                         'currency' => $currency_code,
-                        'paymentType' => 'DB'
+                        'paymentType' => 'DB',
+                        'merchantTransactionId' => $new_order_id,
+                        'customParameters' => array(
+                            'SHOPPER_PaymentId' => $new_order_id
+                        )
 					)
 				);
 				}
 				
-// 				print_r ($args);
+ 				//print_r ($args);
 				$this->custom_logs('inside on_checkout_prepare_the_checkout_ID: ' . $args);
                 $response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
                 $this->custom_logs($args);
@@ -673,11 +654,9 @@ function initialize_gateway_class()
                         'paymentType' => 'RF',
                         'testMode' => $this->TEST_EXTERNAL,
                         'customParameters' => array(
-//                            'SHOPPER_PaymentId' => $this->Order_id,
                             '3DS2_enrolled' => 'true',
                             '3DS2_flow' => $this->TD_Frictionless
                         )
-
                     )
                 );
 				}
@@ -979,6 +958,24 @@ function initialize_gateway_class()
                     'woocommerce_checkout_after_order_review',
                     array($this, 'get_payment_response_after_Payment')
                 );
+            }
+            /**
+             * Here is a custom function that will return the last order ID:
+             *
+             *
+            **/
+            public function get_last_order_id(){
+                global $wpdb;
+                $statuses = array_keys(wc_get_order_statuses());
+                $statuses = implode( "','", $statuses );
+
+                // Getting last Order ID (max value)
+                $results = $wpdb->get_col( "
+                    SELECT MAX(ID) FROM {$wpdb->prefix}posts
+                    WHERE post_type LIKE 'shop_order'
+                    AND post_status IN ('$statuses')
+                " );
+                return reset($results);
             }
 
         }
