@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e4c13c7-bfa7-4901-9cb6-db4a11eb6427" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/paystrax.php" beforeDir="false" afterPath="$PROJECT_DIR$/paystrax.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/paymentFormStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/paymentFormStyle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webhook_URL.php" beforeDir="false" afterPath="$PROJECT_DIR$/webhook_URL.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webhookdatastore.php" beforeDir="false" afterPath="$PROJECT_DIR$/webhookdatastore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
