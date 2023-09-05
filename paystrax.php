@@ -288,7 +288,7 @@ function initialize_gateway_class()
                 $items            = $woocommerce->cart->get_cart();
                 $cart_subtotal    = $woocommerce->cart->subtotal;
                 $shipping_total = WC()->cart->get_shipping_total() + WC()->cart->get_shipping_tax();
-                $total = $cart_subtotal + $shipping_total;
+                $total = round($cart_subtotal + $shipping_total,2);
                 $currency_code    = get_woocommerce_currency();
                 $billing_phone    = WC()->customer->get_billing_phone();
                 
@@ -304,7 +304,7 @@ function initialize_gateway_class()
                     ),
                     'body' => array(
                         'entityId' => $this->ENTITYID,
-                        'amount'   =>  $total,
+                        'amount'   => $total,
                         'customer.phone' =>  $billing_phone,
                         'currency' => $currency_code,
                         'paymentType' => 'DB',
