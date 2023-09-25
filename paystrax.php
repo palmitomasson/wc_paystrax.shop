@@ -257,7 +257,7 @@ function initialize_gateway_class()
                         </header>
                         <section class="modal-content">
 						<script src="<?php echo $this->API_Endpoint ?>paymentWidgets.js?checkoutId=<?php echo $id ?>"></script>					                    		 	
-                          <form action=<?php echo $return_shop_url ?> class="paymentWidgets" createCheckout ="<?php echo $this->VISA . ' ' . $this->MASTER . ' ' . $this->AMEX . ' ' . $this->GOOGLEPAY . ' ' . $this->APPLEPAY . ' ' . $this->DINERS ?>"></form>
+                          <form action=<?php echo $return_shop_url ?> class="paymentWidgets"  data-brands="<?php echo $this->VISA . ' ' . $this->MASTER . ' ' . $this->AMEX . ' ' . $this->GOOGLEPAY . ' ' . $this->APPLEPAY . ' ' . $this->DINERS ?>"></form>
                         </section>
                         <p id="debug-message"></p>
                     </div>
