@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e4c13c7-bfa7-4901-9cb6-db4a11eb6427" name="Changes" comment="">
+    <list default="true" id="7e4c13c7-bfa7-4901-9cb6-db4a11eb6427" name="Changes" comment="brands-brands inserted instead of createCheckout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paystrax.php" beforeDir="false" afterPath="$PROJECT_DIR$/paystrax.php" afterDir="false" />
     </list>
@@ -49,7 +49,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/paystrax.php" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts/paymentFormStyle.js" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Diff &amp; Merge" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -61,6 +61,37 @@
       <option name="presentableId" value="Default" />
       <updated>1675865729578</updated>
     </task>
+    <task id="LOCAL-00001" summary="brands">
+      <created>1695646974168</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695646974168</updated>
+    </task>
+    <task id="LOCAL-00002" summary="brands-brands inserted instead of createCheckout">
+      <created>1695647801879</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695647801879</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="brands" />
+    <MESSAGE value="brands-brands inserted instead of createCheckout" />
+    <option name="LAST_COMMIT_MESSAGE" value="brands-brands inserted instead of createCheckout" />
   </component>
 </project>

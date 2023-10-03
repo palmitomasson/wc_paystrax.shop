@@ -310,12 +310,9 @@ function initialize_gateway_class()
                         'paymentType' => 'DB',
                         'merchantTransactionId' => $new_order_id,
                         'testMode' => $this->TEST_EXTERNAL,
-                        'customParameters' => array(
-                            'SHOPPER_PaymentId' => $new_order_id,
-                            '3DS2_enrolled' => 'true',
-                            '3DS2_flow' => $this->TD_Frictionless
-                        )
-
+                        'customParameters[SHOPPER_PaymentId]' => $new_order_id,
+                        'customParameters[3DS2_enrolled]' => 'true',
+                        'customParameters[3DS2_flow]' => $this->TD_Frictionless
                     )
                 );
 				}
@@ -324,7 +321,7 @@ function initialize_gateway_class()
                     'method' => 'post',
                     'headers'     => array(
                         'Authorization' => 'Bearer ' . $this->TOKEN,
-                        'Content-Type' => 'application/x-www-form-urlencoded',
+                        'Content-Type' => 'application/x-www-form-urlencoded'
                     ),
                     'body' => array(
                         'entityId' => $this->ENTITYID,
@@ -336,17 +333,19 @@ function initialize_gateway_class()
                         'currency' => $currency_code,
                         'paymentType' => 'DB',
                         'merchantTransactionId' => $new_order_id,
-                        'customParameters' => array(
-                            'SHOPPER_PaymentId' => $new_order_id
-                        )
+                        'customParameters[SHOPPER_PaymentId]' => $new_order_id
 					)
 				);
 				}
 				
  				//print_r ($args);
-				$this->custom_logs('inside on_checkout_prepare_the_checkout_ID: ' . $args);
-                $response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
+				$this->custom_logs('inside on_checkout_prepare_the_checkout_ID: ');
+                //$response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
+                $response = $this->prepare_checkout($this->API_Endpoint . 'checkouts', $args );
+                $this->custom_logs($this->API_Endpoint . 'checkouts');
+                $this->custom_logs($response);
                 $this->custom_logs($args);
+                /* TODO: Find a different way to error check
                 if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
                     error_log(print_r($response, true));
                     return new WP_Error(
@@ -354,17 +353,60 @@ function initialize_gateway_class()
                         __('Create Checkout Id failed.', 'woocommerce')
                     );
                 }
-                $responseBody = wp_remote_retrieve_body($response);
-                $data = json_decode($responseBody, true);
-                $this->custom_logs($data);
+                */
+                $data = json_decode($response);
+                $this->custom_logs("after json_decode");
+                //$this->custom_logs($data);
 
-                //checkout id
-                $checkoutID = $data['id'];
+                $checkoutID = $data->{'id'};
 
                 $this->custom_logs('==== checkout id =' . $checkoutID);
                 WC()->session->set('Checkout-ID', $checkoutID);
 				$this->custom_logs('==== endpoint url =' . $this->API_Endpoint);
                 $this->custom_logs('==== end prepare the checkout=========');
+            }
+            /**
+             * Prepare the Checkout here
+             * replaces wordpress function
+             * $response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
+             * @param string $desturl, Array $args
+             *
+             * @return array
+             */
+             function prepare_checkout($desturl, $postdata ) {
+            	/*
+            	$url = "https://eu-test.oppwa.com/v1/checkouts";
+            	$data = "entityId=8ac7a4c86a304582016a30b41682019b" .
+                            "&amount=92.00" .
+                            "&currency=EUR" .
+                            "&paymentType=DB";
+                */
+                //$strpostdata = json_encode($postdata['body']);
+
+                $poststr = '';
+                foreach($postdata['body'] as $x => $x_value) {
+                  $poststr = $poststr . '&' . urlencode($x) . '=' . $x_value ;
+                }
+
+
+            	$ch = curl_init();
+            	curl_setopt($ch, CURLOPT_URL, $desturl);
+            	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            	curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'Authorization: ' . $postdata['headers']['Authorization'],
+            	'Content-Type: ' . $postdata['headers']['Content-Type']
+            	));
+            	curl_setopt($ch, CURLOPT_POST, 1);
+            	curl_setopt($ch, CURLOPT_POSTFIELDS, substr($poststr,1));
+            	$this->custom_logs($poststr);
+                //$this->TOKEN = $this->test_mode ? $this->get_option('test_TOKEN') : $this->get_option('Live_TOKEN');
+            	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->test_mode ? false : true);// this should be set to true in production
+            	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            	$responseData = curl_exec($ch);
+            	if(curl_errno($ch)) {
+            		return curl_error($ch);
+            	}
+            	curl_close($ch);
+            	return $responseData;
             }
             /**
              * Get the payment Response after payment.
