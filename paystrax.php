@@ -4,7 +4,7 @@
  * Plugin Name:       Paystrax
  * Plugin URI:        https://example.com/plugins/the-basics/
  * Description:       Paystrax payment plugin for accepting multiple cards.
- * Version:           1.0.5
+ * Version:           1.1.1
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Paystrax
@@ -21,7 +21,7 @@ defined('ABSPATH') || exit;
  *
  * @class   WC_Paystrax_Gateway
  * @extends WC_Payment_Gateway
- * @version 1.0.5
+ * @version 1.1.1
  * @package WooCommerce\Classes\Payment
  * Requires PHP: 7.4
  */
@@ -327,9 +327,6 @@ function initialize_gateway_class()
                         'entityId' => $this->ENTITYID,
                         'amount'   =>  $total,
                         'customer.phone' =>  $billing_phone,
-						// PT : uncommented above line and commented next 2 
-                        //'requiredBillingContactFields' => array('email','name','phone'),
-                        //'submitOnPaymentAuthorized' => array('customer'),
                         'currency' => $currency_code,
                         'paymentType' => 'DB',
                         'merchantTransactionId' => $new_order_id,
@@ -371,17 +368,9 @@ function initialize_gateway_class()
              * $response = wp_remote_post($this->API_Endpoint . 'checkouts', $args);
              * @param string $desturl, Array $args
              *
-             * @return array
+             * @return json array
              */
              function prepare_checkout($desturl, $postdata ) {
-            	/*
-            	$url = "https://eu-test.oppwa.com/v1/checkouts";
-            	$data = "entityId=8ac7a4c86a304582016a30b41682019b" .
-                            "&amount=92.00" .
-                            "&currency=EUR" .
-                            "&paymentType=DB";
-                */
-                //$strpostdata = json_encode($postdata['body']);
 
                 $poststr = '';
                 foreach($postdata['body'] as $x => $x_value) {
@@ -398,7 +387,6 @@ function initialize_gateway_class()
             	curl_setopt($ch, CURLOPT_POST, 1);
             	curl_setopt($ch, CURLOPT_POSTFIELDS, substr($poststr,1));
             	$this->custom_logs($poststr);
-                //$this->TOKEN = $this->test_mode ? $this->get_option('test_TOKEN') : $this->get_option('Live_TOKEN');
             	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->test_mode ? false : true);// this should be set to true in production
             	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             	$responseData = curl_exec($ch);
