@@ -37,6 +37,7 @@ jQuery(document).ready(function () {
 
 function setDetails() {
     //var customer_details = document.forms.checkout.children.customer_details;
+
     var customer_details = document.getElementById('customer_details');
 
 document.getElementById('customer_details')
