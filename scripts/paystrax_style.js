@@ -36,8 +36,10 @@ jQuery(document).ready(function () {
 
 
 function setDetails() {
-    var customer_details = document.forms.checkout.children.customer_details;
+    //var customer_details = document.forms.checkout.children.customer_details;
+    var customer_details = document.getElementById('customer_details');
 
+document.getElementById('customer_details')
     if (customer_details.querySelector('#billing_first_name') !== null) {
         var billing_first_name = customer_details.querySelector('#billing_first_name').value;
         var is_billing_first_name_required = customer_details.querySelector('#billing_first_name_field');
