@@ -7,8 +7,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e4c13c7-bfa7-4901-9cb6-db4a11eb6427" name="Changes" comment="brands-brands inserted instead of createCheckout">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7e4c13c7-bfa7-4901-9cb6-db4a11eb6427" name="Changes" comment="function setDetails fixed for customer_details (see line 39 and 40)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/paystrax_style.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/paystrax_style.js" afterDir="false" />
     </list>
@@ -20,6 +19,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+  }
+}</component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -27,6 +30,14 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a2bcd83f-cf7c-429f-ad3f-9f1d027c6034" />
+        <option name="url" value="https://github.com/palmitomasson/wc_paystrax.shop.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../README.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
@@ -77,7 +88,21 @@
       <option name="project" value="LOCAL" />
       <updated>1695647801879</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="function setDetails fixed for customer_details (see line 39 and 40)">
+      <created>1706003364913</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706003364913</updated>
+    </task>
+    <task id="LOCAL-00004" summary="function setDetails fixed for customer_details (see line 39 and 40)">
+      <created>1706004556941</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706004556941</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -94,6 +119,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="brands" />
     <MESSAGE value="brands-brands inserted instead of createCheckout" />
-    <option name="LAST_COMMIT_MESSAGE" value="brands-brands inserted instead of createCheckout" />
+    <MESSAGE value="function setDetails fixed for customer_details (see line 39 and 40)" />
+    <option name="LAST_COMMIT_MESSAGE" value="function setDetails fixed for customer_details (see line 39 and 40)" />
   </component>
 </project>

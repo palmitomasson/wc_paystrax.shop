@@ -1,38 +1,50 @@
 jQuery(document).ready(function () {
-    jQuery(document).on("change", "input[name=payment_method]", function () {
-        var payment_method = $('input[name=payment_method]:checked').val();
-        if (payment_method == 'paystrax') {
-            $('#place_order').addClass('hide');
-            localStorage.setItem("payment_method", 'paystrax');
+    // Retrieve the checkbox status from local storage
+    var isChecked = localStorage.getItem('termsCheckbox');
+    if (isChecked === 'checked') {
+        // If checkbox was checked before, set it as checked
+        jQuery('input[name="terms"]').prop('checked', true);
+    }
 
+    // Handle change event for the payment method checkbox
+    jQuery(document).on("change", "input[name=payment_method]", function () {
+        var payment_method = jQuery('input[name=payment_method]:checked').val();
+        if (payment_method == 'paystrax') {
+            jQuery('#place_order').addClass('hide');
+            localStorage.setItem("payment_method", 'paystrax');
         } else {
-            $('#place_order').removeClass('hide');
+            jQuery('#place_order').removeClass('hide');
         }
     });
 
+    // Handle click event for opening the modal
     jQuery(document).on('click', '.open-modal', function () {
+        // Set details and validate fields
         setDetails();
-        let vaild = checkoutFieldDetailsValidation();
-        if (vaild !== false) {
-            $('#modal1').addClass('is-visible');
+        let valid = checkoutFieldDetailsValidation();
+        if (valid !== false) {
+            jQuery('#modal1').addClass('is-visible');
         }
-    })
-    //close modal
-    jQuery(document).on('click', '.close-modal', function () {
-        $('#modal1').removeClass('is-visible');
-    })
+    });
 
-    // if we press the ESC close modal
+    // Handle click event for closing the modal
+    jQuery(document).on('click', '.close-modal', function () {
+        jQuery('#modal1').removeClass('is-visible');
+    });
+
+    // Handle keyup event for closing the modal when pressing ESC
     jQuery(document).on('keyup', function (e) {
         if (e.key == "Escape") {
-            $('#modal1').removeClass('is-visible');
+            jQuery('#modal1').removeClass('is-visible');
         }
-    })
+    });
 
-
-
-
-})
+    // Handle change event for the terms checkbox
+    jQuery(document).on("change", "input[name=terms]", function () {
+        // Store the checkbox status in local storage
+        localStorage.setItem('termsCheckbox', this.checked ? 'checked' : 'unchecked');
+    });
+});
 
 
 function setDetails() {
@@ -189,7 +201,7 @@ document.getElementById('customer_details')
         let displayNone = document.querySelector('.shipping_address').style.display;
         if (displayNone == 'none') {
             console.log('if', displayNone);
-        } else {           
+        } else {
             localStorage.setItem("shipping_address", true);
             customerDetails = {
                 ...customerDetails,
@@ -224,7 +236,7 @@ document.getElementById('customer_details')
                 }
             }
         }
-    }   
+    }
     localStorage.setItem("customerDetatails", JSON.stringify(customerDetails));
 }
 
@@ -233,9 +245,9 @@ document.getElementById('customer_details')
 function translate(txt) {
     var sourceText = txt;
     var sourceLang = 'en';
-    var targetLang = localStorage.getItem('language');     
+    var targetLang = localStorage.getItem('language');
     var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + sourceLang + "&tl=" + targetLang + "&dt=t&q=" + encodeURI(sourceText);
-    $.getJSON(url, function (data) {       
+    $.getJSON(url, function (data) {
         swal(data[0][0][0]);
     })
     .fail(function() {
@@ -254,8 +266,8 @@ function checkoutFieldDetailsValidation() {
             }
             if (key == 'billing_postcode') {
                 if (details[key] !== '') {
-                    let regEX = PostCodeValidation(details.billing_country, details.billing_postcode);                   
-                    if (!regEX) {                      
+                    let regEX = PostCodeValidation(details.billing_country, details.billing_postcode);
+                    if (!regEX) {
                         translate("Billing PIN Code is not a valid postcode / ZIP!");
                         return false;
                     }
@@ -279,7 +291,7 @@ function checkoutFieldDetailsValidation() {
                     }
                 }
             }
-            if (key == 'requiredShippingDetails') {               
+            if (key == 'requiredShippingDetails') {
                 for (var key1 in details[key]) {
                     if (details[key][key1] == '') {
                         translate("Enter Required Shipping Details!");
@@ -297,6 +309,19 @@ function checkoutFieldDetailsValidation() {
                 }
             }
         }
+    }
+	// add validation for the terms.
+	var $termsCheckbox = $('input[name="terms"]');
+
+    // Check if the checkbox is checked
+    if ($termsCheckbox.is(':checked')) {
+        // Checkbox is checked, do something
+        console.log("Terms and conditions checkbox is checked.");
+    } else {
+        // Checkbox is not checked, do something else
+        console.log("Terms and conditions checkbox is not checked.");
+		translate("Terms and conditions checkbox is not checked.");
+		return false;
     }
 }
 
