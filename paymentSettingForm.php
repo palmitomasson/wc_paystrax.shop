@@ -21,6 +21,13 @@ $form = array(
         'default'     => __('Credit Card', 'text-domain'),
         'desc_tip'    => true,
     ),
+    'button_label' => array(
+        'title'       => __('Button label', 'text-domain'),
+        'type'        => 'text',
+        'description' => __('This controls the label for pay button', 'text-domain'),
+        'default'     => __('Click to Pay', 'text-domain'),
+        'desc_tip'    => true,
+    ),
     'description' => array(
         'title'       => __('Description', 'text-domain'),
         'type'        => 'textarea',

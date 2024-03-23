@@ -9,6 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7e4c13c7-bfa7-4901-9cb6-db4a11eb6427" name="Changes" comment="function setDetails fixed for customer_details (see line 39 and 40)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentSettingForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/paymentSettingForm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paystrax.php" beforeDir="false" afterPath="$PROJECT_DIR$/paystrax.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

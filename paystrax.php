@@ -80,6 +80,7 @@ function initialize_gateway_class()
                 // load the settings.
                 $this->init_settings();
                 $this->title = $this->get_option('title');
+                $this->button_label = $this->get_option('button_label');
                 $this->description = $this->get_option('description');
                 $this->enabled = $this->get_option('enabled');
                 $this->test_mode = 'yes' === $this->get_option('test_mode');
@@ -236,7 +237,7 @@ function initialize_gateway_class()
             public function payment_fields()
             {
                 ?>
-                <button type="button" class="open-modal" data-open="modal1">Click to Pay</button>
+                <button type="button" class="open-modal" data-open="modal1"> <?php echo $this->button_label; ?></button>
                 <p> <?php echo $this->description; ?> </p>
             <?php
             }
