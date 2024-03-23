@@ -4,7 +4,7 @@
  * Plugin Name:       Paystrax
  * Plugin URI:        https://example.com/plugins/the-basics/
  * Description:       Paystrax payment plugin for accepting multiple cards.
- * Version:           1.1.1
+ * Version:           1.13.1
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Paystrax
@@ -21,7 +21,7 @@ defined('ABSPATH') || exit;
  *
  * @class   WC_Paystrax_Gateway
  * @extends WC_Payment_Gateway
- * @version 1.1.1
+ * @version 1.13.1
  * @package WooCommerce\Classes\Payment
  * Requires PHP: 7.4
  */
@@ -237,6 +237,7 @@ function initialize_gateway_class()
             {
                 ?>
                 <button type="button" class="open-modal" data-open="modal1">Click to Pay</button>
+                <p> <?php echo $this->description; ?> </p>
             <?php
             }
             /**
